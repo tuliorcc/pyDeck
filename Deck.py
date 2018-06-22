@@ -97,7 +97,7 @@ class Baralho(object):
 class Monte(Baralho):
     """
     Classe Monte() - Extende a classe Baralho()
-    Descrição: Um monte onde se pode inserir cartas.
+    Descrição: Um monte onde se pode inserir cartas, iniciado vazio.
     Campos:
     Métodos:
 
@@ -110,7 +110,7 @@ class Monte(Baralho):
 class Jogador(object):
     """
     Classe Jogador(nome)
-    Descrição: Jogador em um jogo de cartas, indicado por um nome.
+    Descrição: Jogador em um jogo de cartas, possui um nome.
     Campos:
     Métodos:
 
@@ -149,6 +149,7 @@ class Mesa(object):
     def __init__(self, jogadores):
         self.jogadores = [Jogador(nome) for nome in jogadores]
         self.baralho = Baralho()
+        self.montes = []
 
     def dar_cartas_inicio(self, num):
         self.baralho.embaralhar()
@@ -158,3 +159,6 @@ class Mesa(object):
                     player.sacar_topo(self.baralho)
                 except IndexError:
                     print("Erro ao tentar sacar carta ao distribuir cartas, baralho vazio")
+
+    def criar_monte(self):
+        self.montes.append(Monte())
