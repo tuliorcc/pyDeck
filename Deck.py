@@ -60,10 +60,10 @@ class Carta(object):
         print("{}-{}".format(self.valor_str, self.naipe_str))
 
 
-class Baralho(object):
+class Monte(object):
     """
-    Classe Baralho()
-    Descrição: Um baralho de cartas, iniciado em 52 cartas padrão.
+    Classe Monte() - Extende a classe Baralho()
+    Descrição: Um monte onde se pode inserir cartas, iniciado vazio.
     Campos:
     Métodos:
 
@@ -71,12 +71,6 @@ class Baralho(object):
 
     def __init__(self):
         self.cartas = []
-        self.construir()
-
-    def construir(self):
-        for np in ["o", "e", "c", "p"]:
-            for val in range(1,14):
-                self.cartas.append(Carta(val, np))
 
     def print(self):
         for c in self.cartas:
@@ -94,10 +88,10 @@ class Baralho(object):
             print("IndexError: Impossível tirar carta de baralho vazio.")
 
 
-class Monte(Baralho):
+class Baralho(Monte):
     """
-    Classe Monte() - Extende a classe Baralho()
-    Descrição: Um monte onde se pode inserir cartas, iniciado vazio.
+    Classe Baralho()
+    Descrição: Um baralho de cartas, iniciado em 52 cartas padrão.
     Campos:
     Métodos:
 
@@ -105,6 +99,12 @@ class Monte(Baralho):
 
     def __init__(self):
         self.cartas = []
+        self.construir()
+
+    def construir(self):
+        for np in ["o", "e", "c", "p"]:
+            for val in range(1,14):
+                self.cartas.append(Carta(val, np))
 
 
 class Jogador(object):
