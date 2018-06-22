@@ -162,8 +162,8 @@ class Mesa(object):
     Métodos:
 
     """
-    def __init__(self, jogadores):
-        self.jogadores = [Jogador(nome) for nome in jogadores]
+    def __init__(self, nomes_jogadores):
+        self.jogadores = [Jogador(nome) for nome in nomes_jogadores]
         self.baralho = Baralho()
         self.montes = []
 
