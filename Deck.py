@@ -62,7 +62,7 @@ class Carta(object):
 
 class Monte(object):
     """
-    Classe Monte() - Extende a classe Baralho()
+    Classe Monte()
     Descrição: Um monte onde se pode inserir cartas, iniciado vazio.
     Campos:
     Métodos:
@@ -71,6 +71,9 @@ class Monte(object):
 
     def __init__(self):
         self.cartas = []
+
+    def __len__(self):
+        return len(self.cartas)
 
     def print(self):
         for c in self.cartas:
@@ -87,10 +90,14 @@ class Monte(object):
         except IndexError:
             print("IndexError: Impossível tirar carta de baralho vazio.")
 
+    def inserir_topo(self, carta):
+        self.cartas.append(carta)
+        return len(self.cartas)
+
 
 class Baralho(Monte):
     """
-    Classe Baralho()
+    Classe Baralho() - Extende a classe Monte()
     Descrição: Um baralho de cartas, iniciado em 52 cartas padrão.
     Campos:
     Métodos:
@@ -120,6 +127,9 @@ class Jogador(object):
         self.nome = nome
         self.mao = []
 
+    def __str__(self):
+        return self.nome
+
     def sacar_topo(self, baralho):
         self.mao.append(baralho.tirar_topo())
 
@@ -136,6 +146,12 @@ class Jogador(object):
             if self.mao[i] == descarte:
                 return self.mao.pop(i)
         return self.mao
+
+    def qtd_cartas(self):
+        return len(self.mao)
+
+    def inserir_carta(self, carta):
+        self.mao.append(carta)
 
 
 class Mesa(object):
@@ -162,3 +178,4 @@ class Mesa(object):
 
     def criar_monte(self):
         self.montes.append(Monte())
+        return self
