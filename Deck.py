@@ -1,4 +1,15 @@
 import random
+"""
+Esqueleto para documentação de classes:
+
+Classe(vars)
+Descrição:
+Campos:
+Métodos:
+
+"""
+
+
 
 class Carta(object):
     """
@@ -52,7 +63,7 @@ class Carta(object):
 class Baralho(object):
     """
     Classe Baralho()
-    Descrição:
+    Descrição: Um baralho de cartas, iniciado em 52 cartas padrão.
     Campos:
     Métodos:
 
@@ -83,10 +94,23 @@ class Baralho(object):
             print("IndexError: Impossível tirar carta de baralho vazio.")
 
 
+class Monte(Baralho):
+    """
+    Classe Monte() - Extende a classe Baralho()
+    Descrição: Um monte onde se pode inserir cartas.
+    Campos:
+    Métodos:
+
+    """
+
+    def __init__(self):
+        self.cartas = []
+
+
 class Jogador(object):
     """
     Classe Jogador(nome)
-    Descrição:
+    Descrição: Jogador em um jogo de cartas, indicado por um nome.
     Campos:
     Métodos:
 
@@ -117,7 +141,7 @@ class Jogador(object):
 class Mesa(object):
     """
     Classe Mesa(jogadores)
-    Descrição:
+    Descrição: Estado atual da mesa de jogo. Possui jogadores e um baralho.
     Campos:
     Métodos:
 
