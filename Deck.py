@@ -1,6 +1,22 @@
 import random
 
 class Carta(object):
+    """
+    Classe Carta(valor, naipe)
+    Descrição:
+        Uma carta qualquer, com um valor e um naipe.
+    Campos:
+        self.naipe - Naipe da carta. Pertence ao conjunto {"o", "e", "c", "p"}, que significam Ouro, Espadas, Copas e
+            Paus, respectivamente.
+
+        self. valor - Valor numérico da carta, inteiro entre 1 e 13. 1 é Ás, 11, 12 e 13 são Valete, Dama e Rei,
+            respectivamente.
+
+        self.naipe_str e self.valor_str - Strings do valor e naipe, para impressão simplificada da carta.
+    Métodos:
+        print() - imprime o valor e naipe da carta de maneira simplificada (valor-naipe).
+
+    """
     def __init__(self, valor, naipe):
         self.naipe = naipe
         self.valor = valor
@@ -34,6 +50,14 @@ class Carta(object):
 
 
 class Baralho(object):
+    """
+    Classe Baralho()
+    Descrição:
+    Campos:
+    Métodos:
+
+    """
+
     def __init__(self):
         self.cartas = []
         self.construir()
@@ -60,6 +84,14 @@ class Baralho(object):
 
 
 class Jogador(object):
+    """
+    Classe Jogador(nome)
+    Descrição:
+    Campos:
+    Métodos:
+
+    """
+
     def __init__(self,nome):
         self.nome = nome
         self.mao = []
@@ -81,7 +113,15 @@ class Jogador(object):
                 return self.mao.pop(i)
         return self.mao
 
+
 class Mesa(object):
+    """
+    Classe Mesa(jogadores)
+    Descrição:
+    Campos:
+    Métodos:
+
+    """
     def __init__(self, jogadores):
         self.jogadores = [Jogador(nome) for nome in jogadores]
         self.baralho = Baralho()
