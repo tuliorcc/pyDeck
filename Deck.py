@@ -1,4 +1,5 @@
 import random
+
 """
 Esqueleto para documentação de classes:
 
@@ -138,7 +139,11 @@ class Jogador(object):
             carta.print()
 
     def descartar(self, index):
-        return self.mao.pop(index)
+        try:
+            return self.mao.pop(index)
+        except:
+            print("IndexError: Impossível tirar carta de mão vazia.")
+
 
     def descartar_carta(self, val, np):
         descarte = Carta(val, np)

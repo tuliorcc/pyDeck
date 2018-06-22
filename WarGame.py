@@ -20,30 +20,35 @@ class WarGame(object):
         self.mesa.criar_monte()         # Cria monte war
 
     def jogar(self, limite):
-        while (not self.fim and self.rodadas<limite):
+        while not self.fim and self.rodadas < limite:
             self.rodadas += 1
             # print_underline('Jogando rodada {}'.format(self.rodadas), '=')
             self.play_rodada()
-            """print("Fim da rodada.\n Cartas: {}: {} | {}: {}".format(str(self.mesa.jogadores[0]),\
+            """print("Fim da rodada.\nCartas: {}: {} | {}: {}".format(str(self.mesa.jogadores[0]),\
                                                                      self.mesa.jogadores[0].qtd_cartas(),\
                                                                      str(self.mesa.jogadores[1]), \
                                                                      self.mesa.jogadores[1].qtd_cartas()))"""
 
-        print_underline('FIM DE JOGO!', '=')
+        print_underline('FIM DE SIMULAÇÃO!', '=')
         print("Resultados:\n"
               "Rodadas jogadas: {}\n"
-              "Cartas: {}: {}  x  {}: {}".format(self.rodadas,
+              "Cartas: {}: {}  x  {}: {}\n"
+              "Restante no monte: {}".format(self.rodadas,
                                                  str(self.mesa.jogadores[0]),
                                                  self.mesa.jogadores[0].qtd_cartas(),
                                                  str(self.mesa.jogadores[1]),
-                                                 self.mesa.jogadores[1].qtd_cartas()))
+                                                 self.mesa.jogadores[1].qtd_cartas(),
+                                                 len(self.mesa.montes[0])))
 
         vencedor = str(self.calc_vencedor())
         print("Vencedor: {}".format(vencedor))
 
     def play_rodada(self):
         self.descartar_mao_battle()     # Manda topo da mão para o monte battle
-        self.battle()                   # Roda a batalha
+        if not self.fim:
+            self.battle()                   # Roda a batalha
+        else:
+            self.batalha_to_war()
 
     def descartar_mao_battle(self):
         for jogador in self.mesa.jogadores:
@@ -53,7 +58,7 @@ class WarGame(object):
         carta1 = self.batalha[0]
         carta2 = self.batalha[1]
         self.batalha_to_war()      # manda cartas da batalha para monte
-        # print("Batalha: {} vs {}".format(str(carta1), str(carta2)))
+        #print("Batalha: {} vs {}".format(str(carta1), str(carta2)))
 
         if carta1.valor == carta2.valor:        # caso empate
             # print("War!")
@@ -83,13 +88,15 @@ class WarGame(object):
 
     def calc_vencedor(self):
         if self.mesa.jogadores[0].qtd_cartas() > self.mesa.jogadores[1].qtd_cartas():
-            return self.mesa.jogadores[0]
+            return str(self.mesa.jogadores[0])
+        elif self.mesa.jogadores[0].qtd_cartas() < self.mesa.jogadores[1].qtd_cartas():
+            return str(self.mesa.jogadores[1])
         else:
-            return self.mesa.jogadores[1]
+            return "Empate"
 
     @property
     def fim(self):
-        return not bool(self.mesa.jogadores[0].mao or self.mesa.jogadores[1].mao)
+        return sum(bool(jogador.mao) for jogador in self.mesa.jogadores) == 1
 
 
 def main():
