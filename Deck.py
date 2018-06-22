@@ -7,27 +7,30 @@ class Carta(object):
         if (valor > 1 and valor < 11):
             self.valor_str = str(valor)
         elif (valor == 1):
-            self.valor_str = "As"
+            self.valor_str = "A"
         elif (valor == 11):
-            self.valor_str = "Valete"
+            self.valor_str = "J"
         elif (valor == 12):
-            self.valor_str = "Dama"
+            self.valor_str = "Q"
         elif (valor == 13):
-            self.valor_str = "Rei"
+            self.valor_str = "K"
         if (naipe == "o"):
-            self.naipe_str = "Ouros"
+            self.naipe_str = "♦"
         if (naipe == "e"):
-            self.naipe_str = "Espadas"
+            self.naipe_str = "♠"
         if (naipe == "c"):
-            self.naipe_str = "Copas"
+            self.naipe_str = "♥"
         if (naipe == "p"):
-            self.naipe_str = "Paus"
+            self.naipe_str = "♣"
 
     def __eq__(self, other):
         return (self.valor == other.valor) and (self.naipe == other.naipe)
 
+    def __str__(self):
+        return "{}-{}".format(self.valor_str, self.naipe_str)
+
     def print(self):
-        print("{} de {}".format(self.valor_str, self.naipe_str))
+        print("{}-{}".format(self.valor_str, self.naipe_str))
 
 
 class Baralho(object):
@@ -50,7 +53,10 @@ class Baralho(object):
             self.cartas[i], self.cartas[rand] = self.cartas[rand], self.cartas[i]
 
     def tirar_topo(self):
-        return self.cartas.pop()
+        try:
+            return self.cartas.pop()
+        except IndexError:
+            print("IndexError: Impossível tirar carta de baralho vazio.")
 
 
 class Jogador(object):
@@ -74,3 +80,17 @@ class Jogador(object):
             if self.mao[i] == descarte:
                 return self.mao.pop(i)
         return self.mao
+
+class Mesa(object):
+    def __init__(self, jogadores):
+        self.jogadores = [Jogador(nome) for nome in jogadores]
+        self.baralho = Baralho()
+
+    def dar_cartas_inicio(self, num):
+        self.baralho.embaralhar()
+        for i in range(num):
+            for player in self.jogadores:
+                try:
+                    player.sacar_topo(self.baralho)
+                except IndexError:
+                    print("Erro ao tentar sacar carta ao distribuir cartas, baralho vazio")
