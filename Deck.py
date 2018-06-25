@@ -66,6 +66,7 @@ class Monte(object):
     Classe Monte()
     Descrição: Um monte onde se pode inserir cartas, iniciado vazio.
     Campos:
+        cartas [] - lista de cartas presentes no monte
     Métodos:
 
     """
@@ -89,10 +90,21 @@ class Monte(object):
         try:
             return self.cartas.pop()
         except IndexError:
-            print("IndexError: Impossível tirar carta de baralho vazio.")
+            print("IndexError: Impossível tirar carta de monte vazio.")
+
+    def tirar_random(self):
+        if len(self.cartas) > 0:
+            rand = random.randint(0, len(self.cartas))
+            return self.cartas.pop(rand)
+        else:
+            raise IndexError("IndexError: Impossível tirar carta de monte vazio.")
 
     def inserir_topo(self, carta):
         self.cartas.append(carta)
+        return len(self.cartas)
+
+    def inserir_baixo(self, carta):
+        self.cartas.insert(0, carta)
         return len(self.cartas)
 
 
@@ -143,7 +155,6 @@ class Jogador(object):
             return self.mao.pop(index)
         except:
             print("IndexError: Impossível tirar carta de mão vazia.")
-
 
     def descartar_carta(self, val, np):
         descarte = Carta(val, np)
