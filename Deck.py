@@ -55,10 +55,10 @@ class Carta(object):
         return (self.valor == other.valor) and (self.naipe == other.naipe)
 
     def __str__(self):
-        return "{}-{}".format(self.valor_str, self.naipe_str)
+        return "{}{}".format(self.valor_str, self.naipe_str)
 
     def print(self):
-        print("{}-{}".format(self.valor_str, self.naipe_str))
+        print("[{}{}] ".format(self.valor_str, self.naipe_str), end="", flush=True)
 
 
 class Monte(object):
